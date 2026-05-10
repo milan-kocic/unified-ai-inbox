@@ -1,0 +1,11 @@
+{
+  "name": "Unified AI Inbox",
+  "short_name": "Inbox",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c10",
+  "theme_color": "#0a0c10",
+  "icons": [
+    { "src": "/vite.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

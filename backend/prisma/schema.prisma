@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String       @id @default(uuid())
+  email            String       @unique
+  passwordHash     String
+  gmailToken       String?
+  viberToken       String?
+  slackToken       String?
+  slackTeamId      String?
+  slackBotToken    String?
+  slackAppToken    String?
+  slackSettings    String?      // JSON
+  aiProvider       String?
+  aiApiKey         String?
+  aiModel          String?
+  aiMode           String       @default("auto")
+  aiCustomName     String?
+  aiCustomUrl      String?
+  aiCustomFormat   String?
+  aiCustomHeaders  String?
+  aiCustomPrompt   String?
+  messages         Message[]
+  contacts         Contact[]
+  aiUsageLogs      AiUsageLog[]
+  createdAt        DateTime     @default(now())
+}
+
+model Contact {
+  id                 String    @id @default(uuid())
+  userId             String
+  user               User      @relation(fields: [userId], references: [id])
+  name               String
+  address            String
+  source             String
+  firstSeen          DateTime  @default(now())
+  lastSeen           DateTime  @updatedAt
+  messageCount       Int       @default(0)
+  notes              String?
+  tags               String?
+  aiSummary          String?
+  aiSummaryUpdatedAt DateTime?
+  lastMessagesCache  String?
+  messages           Message[]
+
+  @@unique([userId, address, source])
+}
+
+model Message {
+  id          String        @id @default(uuid())
+  source      String
+  externalId  String        @unique
+  fromName    String
+  fromAddress String
+  subject     String?
+  body        String
+  receivedAt  DateTime
+  isRead      Boolean       @default(false)
+  isDeleted   Boolean       @default(false)
+  isReplied   Boolean       @default(false)
+  aiSummary   String?
+  aiReply     String?
+  contactId   String?
+  contact     Contact?      @relation(fields: [contactId], references: [id])
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  chatHistory ChatMessage[]
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id])
+  role      String
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model AiUsageLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String
+  provider  String
+  model     String
+  tokens    Int
+  createdAt DateTime @default(now())
+}
