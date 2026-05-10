@@ -66,7 +66,8 @@ router.get('/:id/conversation', authMiddleware, async (req, res) => {
         createdAt: msg.receivedAt,
         aiSummary: msg.aiSummary,
         aiReply: msg.aiReply,
-        fromName: msg.fromName
+        fromName: msg.fromName,
+        priority: msg.priority
       });
       for (const chat of msg.chatHistory) {
         conversation.push({

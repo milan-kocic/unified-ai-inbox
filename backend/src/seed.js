@@ -49,28 +49,28 @@ async function main() {
     contacts.push(contact);
   }
 
-  // 3. Kreiraj 15 test poruka
+  // 3. Kreiraj 15 test poruka sa priority
   const now = new Date();
   const messagesData = [
     // Email (5)
-    { source: 'email', externalId: 'email-1', fromName: 'Petar Petrović', fromAddress: 'petar@example.com', subject: 'Ponuda za saradnju', body: 'Poštovani, imamo odličnu ponudu za vas...', isRead: true, aiSummary: 'Petar šalje ponudu za saradnju na novom projektu.', aiReply: 'Poštovani Petre,\n\nHvala na ponudi. Pregledaću je detaljno i javiti Vam se sa povratnim informacijama do kraja nedelje.\n\nS poštovanjem', contact: contacts[0] },
-    { source: 'email', externalId: 'email-2', fromName: 'Petar Petrović', fromAddress: 'petar@example.com', subject: 'Re: Ponuda', body: 'Hvala na brzom odgovoru...', isRead: false, aiSummary: null, contact: contacts[0] },
-    { source: 'email', externalId: 'email-3', fromName: 'Info', fromAddress: 'info@company.com', subject: 'Newsletter maj 2026', body: 'Najnovije vesti iz naše kompanije...', isRead: true, aiSummary: 'Mesečni newsletter sa novostima.', contact: null },
-    { source: 'email', externalId: 'email-4', fromName: 'HR Odeljenje', fromAddress: 'hr@company.com', subject: 'Poziv na razgovor', body: 'Dragi kandidate, pozivamo vas na razgovor...', isRead: false, aiSummary: 'Poziv na razgovor za posao.', contact: null },
-    { source: 'email', externalId: 'email-5', fromName: 'Petar Petrović', fromAddress: 'petar@example.com', subject: 'Faktura #123', body: 'U prilogu šaljemo fakturu...', isRead: true, aiSummary: 'Faktura za usluge iz prethodnog meseca.', contact: contacts[0] },
+    { source: 'email', externalId: 'email-1', fromName: 'Petar Petrović', fromAddress: 'petar@example.com', subject: 'Ponuda za saradnju', body: 'Poštovani, imamo odličnu ponudu za vas...', isRead: true, priority: 'high', aiSummary: 'Petar šalje ponudu za saradnju na novom projektu.', aiReply: 'Poštovani Petre,\n\nHvala na ponudi. Pregledaću je detaljno i javiti Vam se sa povratnim informacijama do kraja nedelje.\n\nS poštovanjem', contact: contacts[0] },
+    { source: 'email', externalId: 'email-2', fromName: 'Petar Petrović', fromAddress: 'petar@example.com', subject: 'Re: Ponuda', body: 'Hvala na brzom odgovoru...', isRead: false, priority: 'medium', aiSummary: null, contact: contacts[0] },
+    { source: 'email', externalId: 'email-3', fromName: 'Info', fromAddress: 'info@company.com', subject: 'Newsletter maj 2026', body: 'Najnovije vesti iz naše kompanije...', isRead: true, priority: 'low', aiSummary: 'Mesečni newsletter sa novostima.', contact: null },
+    { source: 'email', externalId: 'email-4', fromName: 'HR Odeljenje', fromAddress: 'hr@company.com', subject: 'Poziv na razgovor', body: 'Dragi kandidate, pozivamo vas na razgovor...', isRead: false, priority: 'high', aiSummary: 'Poziv na razgovor za posao.', contact: null },
+    { source: 'email', externalId: 'email-5', fromName: 'Petar Petrović', fromAddress: 'petar@example.com', subject: 'Faktura #123', body: 'U prilogu šaljemo fakturu...', isRead: true, priority: 'medium', aiSummary: 'Faktura za usluge iz prethodnog meseca.', contact: contacts[0] },
     // WhatsApp (4)
-    { source: 'whatsapp', externalId: 'wa-1', fromName: 'Ana Anić', fromAddress: '+38164123456', subject: null, body: 'Hej, jesi li slobodan sutra za kafu?', isRead: true, aiSummary: 'Ana pita da li ste slobodni za kafu sutra.', aiReply: 'Hej Ana! Da, slobodan sam sutra posle 14h. Gde se nalazimo?', contact: contacts[1] },
-    { source: 'whatsapp', externalId: 'wa-2', fromName: 'Marko Marković', fromAddress: '+38165123456', subject: null, body: 'Dokumenti su spremni, možeš li doći po njih?', isRead: false, aiSummary: null, contact: contacts[2] },
-    { source: 'whatsapp', externalId: 'wa-3', fromName: 'Ana Anić', fromAddress: '+38164123456', subject: null, body: 'Hvala puno! Vidimo se u 15h.', isRead: true, aiSummary: 'Ana se zahvaljuje i potvrđuje sastanak.', contact: contacts[1] },
-    { source: 'whatsapp', externalId: 'wa-4', fromName: 'Marko Marković', fromAddress: '+38165123456', subject: null, body: 'OK, čujemo se kasnije.', isRead: false, aiSummary: null, contact: contacts[2] },
+    { source: 'whatsapp', externalId: 'wa-1', fromName: 'Ana Anić', fromAddress: '+38164123456', subject: null, body: 'Hej, jesi li slobodan sutra za kafu?', isRead: true, priority: 'low', aiSummary: 'Ana pita da li ste slobodni za kafu sutra.', aiReply: 'Hej Ana! Da, slobodan sam sutra posle 14h. Gde se nalazimo?', contact: contacts[1] },
+    { source: 'whatsapp', externalId: 'wa-2', fromName: 'Marko Marković', fromAddress: '+38165123456', subject: null, body: 'Dokumenti su spremni, možeš li doći po njih?', isRead: false, priority: 'high', aiSummary: null, contact: contacts[2] },
+    { source: 'whatsapp', externalId: 'wa-3', fromName: 'Ana Anić', fromAddress: '+38164123456', subject: null, body: 'Hvala puno! Vidimo se u 15h.', isRead: true, priority: 'low', aiSummary: 'Ana se zahvaljuje i potvrđuje sastanak.', contact: contacts[1] },
+    { source: 'whatsapp', externalId: 'wa-4', fromName: 'Marko Marković', fromAddress: '+38165123456', subject: null, body: 'OK, čujemo se kasnije.', isRead: false, priority: 'low', aiSummary: null, contact: contacts[2] },
     // Viber (3)
-    { source: 'viber', externalId: 'viber-1', fromName: 'Jovan Jovanović', fromAddress: 'jovan@viber', subject: null, body: 'Zdravo, šaljem ti lokaciju za sastanak.', isRead: true, aiSummary: 'Jovan šalje lokaciju za sastanak.', aiReply: 'Hvala Jovane, vidim lokaciju. Stižem za 15 minuta.', contact: contacts[3] },
-    { source: 'viber', externalId: 'viber-2', fromName: 'Jovan Jovanović', fromAddress: 'jovan@viber', subject: null, body: 'Da li si stigao?', isRead: false, aiSummary: null, contact: contacts[3] },
-    { source: 'viber', externalId: 'viber-3', fromName: 'Jovan Jovanović', fromAddress: 'jovan@viber', subject: null, body: 'Odlično, vidimo se za 10 minuta.', isRead: true, aiSummary: 'Jovan potvrđuje dolazak.', contact: contacts[3] },
+    { source: 'viber', externalId: 'viber-1', fromName: 'Jovan Jovanović', fromAddress: 'jovan@viber', subject: null, body: 'Zdravo, šaljem ti lokaciju za sastanak.', isRead: true, priority: 'medium', aiSummary: 'Jovan šalje lokaciju za sastanak.', aiReply: 'Hvala Jovane, vidim lokaciju. Stižem za 15 minuta.', contact: contacts[3] },
+    { source: 'viber', externalId: 'viber-2', fromName: 'Jovan Jovanović', fromAddress: 'jovan@viber', subject: null, body: 'Da li si stigao?', isRead: false, priority: 'critical', aiSummary: null, contact: contacts[3] },
+    { source: 'viber', externalId: 'viber-3', fromName: 'Jovan Jovanović', fromAddress: 'jovan@viber', subject: null, body: 'Odlično, vidimo se za 10 minuta.', isRead: true, priority: 'low', aiSummary: 'Jovan potvrđuje dolazak.', contact: contacts[3] },
     // Slack (3)
-    { source: 'slack', externalId: 'slack-1', fromName: 'Slack Bot', fromAddress: 'slack-user-1', subject: null, body: 'Novi komentar na vaš PR.', isRead: true, aiSummary: 'Obaveštenje o novom komentaru na pull request.', contact: contacts[4] },
-    { source: 'slack', externalId: 'slack-2', fromName: 'Slack Bot', fromAddress: 'slack-user-1', subject: null, body: 'Build je uspešno završen.', isRead: false, aiSummary: null, contact: contacts[4] },
-    { source: 'slack', externalId: 'slack-3', fromName: 'Slack Bot', fromAddress: 'slack-user-1', subject: null, body: 'Deployment na produkciju je započet.', isRead: true, aiSummary: 'Obaveštenje o početku deploymenta.', contact: contacts[4] },
+    { source: 'slack', externalId: 'slack-1', fromName: 'Slack Bot', fromAddress: 'slack-user-1', subject: null, body: 'Novi komentar na vaš PR.', isRead: true, priority: 'medium', aiSummary: 'Obaveštenje o novom komentaru na pull request.', contact: contacts[4] },
+    { source: 'slack', externalId: 'slack-2', fromName: 'Slack Bot', fromAddress: 'slack-user-1', subject: null, body: 'Build je uspešno završen.', isRead: false, priority: 'critical', aiSummary: null, contact: contacts[4] },
+    { source: 'slack', externalId: 'slack-3', fromName: 'Slack Bot', fromAddress: 'slack-user-1', subject: null, body: 'Deployment na produkciju je započet.', isRead: true, priority: 'critical', aiSummary: 'Obaveštenje o početku deploymenta.', contact: contacts[4] },
   ];
 
   for (let i = 0; i < messagesData.length; i++) {
@@ -88,10 +88,11 @@ async function main() {
         isRead: m.isRead,
         aiSummary: m.aiSummary,
         aiReply: m.aiReply,
+        priority: m.priority,
         userId: user.id,
         contactId: m.contact ? m.contact.id : null,
       });
-      console.log('Kreirana poruka:', m.externalId);
+      console.log('Kreirana poruka:', m.externalId, '— priority:', m.priority);
     } else {
       console.log('Poruka već postoji:', m.externalId);
     }

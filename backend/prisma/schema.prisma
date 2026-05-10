@@ -65,6 +65,7 @@ model Message {
   isRead      Boolean       @default(false)
   isDeleted   Boolean       @default(false)
   isReplied   Boolean       @default(false)
+  priority    String?       // low | medium | high | critical
   aiSummary   String?
   aiReply     String?
   contactId   String?

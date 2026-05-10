@@ -61,6 +61,16 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   }
 });
 
+router.patch('/:id/priority', authMiddleware, async (req, res) => {
+  try {
+    const { priority } = req.body;
+    await prisma.message.update({ where: { id: req.params.id }, data: { priority } });
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: 'Greška' });
+  }
+});
+
 router.post('/:id/summarize', authMiddleware, async (req, res) => {
   try {
     const message = await prisma.message.findFirst({ where: { id: req.params.id, userId: req.user.id }, include: { user: true } });
