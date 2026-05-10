@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import API from '../api';
 import { io } from 'socket.io-client';
 import { Mail, Smartphone, MessageCircle, Hash, Send, Trash2, X, Sparkles, Loader2, Edit3, Link as LinkIcon, MessageSquare, Check, Copy } from 'lucide-react';
@@ -155,6 +156,7 @@ function MessageModal({ message, onClose }) {
 }
 
 export default function Inbox() {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -293,7 +295,11 @@ export default function Inbox() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-semibold text-sm text-text-primary">{msg.fromName}</span>
+                      <span
+                        onClick={(e) => { e.stopPropagation(); if (msg.contactId) navigate(`/contacts/${msg.contactId}`); }}
+                        className="font-semibold text-sm text-text-primary cursor-pointer hover:underline hover:text-blue-500 transition-colors"
+                        title="Klikni da vidiš celu konverzaciju"
+                      >{msg.fromName}</span>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full text-white ${color}`}>
                         {SOURCE_LABELS[msg.source] || msg.source.toUpperCase()}
                       </span>

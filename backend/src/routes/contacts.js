@@ -47,6 +47,44 @@ router.get('/:id/messages', authMiddleware, async (req, res) => {
   }
 });
 
+router.get('/:id/conversation', authMiddleware, async (req, res) => {
+  try {
+    const messages = await prisma.message.findMany({
+      where: { contactId: req.params.id, userId: req.user.id, isDeleted: false },
+      include: { chatHistory: { orderBy: { createdAt: 'asc' } } },
+      orderBy: { receivedAt: 'asc' }
+    });
+
+    const conversation = [];
+    for (const msg of messages) {
+      conversation.push({
+        type: 'received',
+        id: msg.id,
+        content: msg.body,
+        subject: msg.subject,
+        source: msg.source,
+        createdAt: msg.receivedAt,
+        aiSummary: msg.aiSummary,
+        aiReply: msg.aiReply,
+        fromName: msg.fromName
+      });
+      for (const chat of msg.chatHistory) {
+        conversation.push({
+          type: chat.role === 'user' ? 'sent' : 'ai',
+          id: chat.id,
+          content: chat.content,
+          createdAt: chat.createdAt
+        });
+      }
+    }
+    conversation.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    res.json(conversation);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Greška' });
+  }
+});
+
 router.patch('/:id', authMiddleware, async (req, res) => {
   try {
     const { notes, tags } = req.body;

@@ -114,6 +114,9 @@ router.post('/:id/reply', authMiddleware, async (req, res) => {
     }
 
     await prisma.message.update({ where: { id: message.id }, data: { isReplied: true } });
+    await prisma.chatMessage.create({
+      data: { messageId: message.id, role: 'user', content: replyText }
+    });
     res.json({ sent: true });
   } catch (e) {
     console.error(e);
